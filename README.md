@@ -300,9 +300,9 @@ This project helped me gain practical experience in:
 
 ## 👨‍💻 Author
 
-**Pavanakumara B**
+**Varun Kumar N**
 
-GitHub: https://github.com/pavanakumarab
+GitHub: https://github.com/varunkumar064
 
-LinkedIn: https://www.linkedin.com/in/pavanakumarab/
+LinkedIn: https://www.linkedin.com/in/varunkumarn-/
 

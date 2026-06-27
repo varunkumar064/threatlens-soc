@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ThreatLens SOC Platform</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <h2>🛡 ThreatLens</h2>
+
+        <p>SOC Platform</p>
+
+    </div>
+
+    <ul>
+
+        <li class="active">
+            <a href="/">📊 Dashboard</a>
+        </li>
+
+        <li>
+            <a href="/dashboard/templates/alerts.html">🚨 Alerts</a>
+        </li>
+
+        <li>
+            <a href="/threat-intel">🌍 Threat Intel</a>
+        </li>
+
+        <li>
+            <a href="/reports">📄 Reports</a>
+        </li>
+
+        <li>
+            <a href="/about">⚙ About</a>
+        </li>
+
+    </ul>
+
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div class="main-content">
+
+    <div class="header">
+
+        <h1>Welcome to ThreatLens</h1>
+
+        <p>Security Operations Center Dashboard</p>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="card">
+
+            <h2 id="total-alerts">{{ alerts|length }}</h2>
+
+            <p>Total Alerts</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2 id="high-alerts">
+            {{ alerts|selectattr("severity","equalto","High")|list|length }}
+            </h2>
+
+            <p>High Severity</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                {{ alerts|selectattr("threat_intel","equalto","Known Malicious")|list|length }}
+            </h2>
+
+            <p>Malicious IPs</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>ACTIVE</h2>
+
+            <p>System Status</p>
+
+        </div>
+
+    </div>
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search IP, MITRE ID, Attack Type..."
+                value="{{ search }}"
+            >
+
+            <button type="submit">
+
+                🔍 Search
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- ALERT TABLE -->
+
+    <div class="table-container">
+
+        <h2>🚨 Active Threats</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Alert ID</th>
+                    <th>Timestamp</th>
+                    <th>IP Address</th>
+                    <th>Attack Type</th>
+                    <th>Attempts</th>
+                    <th>Severity</th>
+                    <th>Score</th>
+                    <th>MITRE ID</th>
+                    <th>Threat Intel</th>
+                    <th>Status</th>
+                    <th>Report</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="alerts-table">
+
+            {% for alert in alerts %}
+
+                <tr>
+
+                    <td>{{ alert.alert_id }}</td>
+
+                    <td>{{ alert.timestamp }}</td>
+
+                    <td>{{ alert.ip }}</td>
+
+                    <td>{{ alert.attack_type }}</td>
+
+                    <td>{{ alert.attempts }}</td>
+
+                    <td>
+
+                        {% if alert.severity == "High" %}
+
+                            🔴 High
+
+                        {% else %}
+
+                            🟡 Medium
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>{{ alert.score }}</td>
+
+                    <td>{{ alert.mitre_id }}</td>
+
+                    <td>
+
+                        {% if alert.threat_intel == "Known Malicious" %}
+
+                            🚨 Malicious
+
+                        {% else %}
+
+                            ✅ Clean
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>{{ alert.status }}</td>
+
+                    <td>
+
+                        <a class="btn pdf"
+                           href="/report/{{ alert.alert_id }}">
+
+                            📄 PDF
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- CHARTS -->
+
+    <div class="charts-grid">
+
+        <div class="chart-card">
+
+            <h2>📊 Threat Score Analysis</h2>
+
+            <canvas id="attackChart"></canvas>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h2>🎯 Threat Distribution</h2>
+
+            <canvas id="pieChart"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- BAR CHART -->
+
+<script>
+
+const attackCtx =
+document.getElementById("attackChart");
+
+new Chart(attackCtx, {
+
+    type: "bar",
+
+    data: {
+
+        labels: [
+
+            {% for alert in alerts %}
+            "{{ alert.attack_type }}",
+            {% endfor %}
+
+        ],
+
+        datasets: [{
+
+            label: "Threat Score",
+
+            data: [
+
+                {% for alert in alerts %}
+                {{ alert.score }},
+                {% endfor %}
+
+            ],
+
+            backgroundColor: "#8b5cf6"
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false
+
+    }
+
+});
+
+</script>
+
+<!-- PIE CHART -->
+
+<script>
+
+const pieCtx =
+document.getElementById("pieChart");
+
+new Chart(pieCtx, {
+
+    type: "doughnut",
+
+    data: {
+
+        labels: [
+
+            {% for alert in alerts %}
+            "{{ alert.attack_type }}",
+            {% endfor %}
+
+        ],
+
+        datasets: [{
+
+            data: [
+
+                {% for alert in alerts %}
+                {{ alert.score }},
+                {% endfor %}
+
+            ],
+
+            backgroundColor: [
+
+                "#8b5cf6",
+                "#7c3aed",
+                "#a855f7",
+                "#c084fc",
+                "#9333ea"
+
+            ]
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false
+
+    }
+
+});
+
+</script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+<script>
+
+const socket = io();
+
+socket.on("connect", () => {
+
+    console.log(
+        "Connected to ThreatLens"
+    );
+
+});
+
+socket.on("new_alert", (data) => {
+
+    console.log(
+        "New Alert Received",
+        data
+    );
+
+    addAlertRow(data);
+    updateCounters(data);
+
+});
+function addAlertRow(alert) {
+
+    const table = document.getElementById("alerts-table");
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        <td>${alert.timestamp}</td>
+        <td>${alert.ip}</td>
+        <td>${alert.attack_type}</td>
+        <td>${alert.severity}</td>
+        <td>${alert.score}</td>
+    `;
+
+    table.prepend(row);
+}
+
+function updateCounters(alert) {
+
+    const total =
+        document.getElementById("total-alerts");
+
+    total.innerText =
+        parseInt(total.innerText) + 1;
+
+    if (alert.severity === "High") {
+
+        const high =
+            document.getElementById("high-alerts");
+
+        high.innerText =
+            parseInt(high.innerText) + 1;
+    }
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ThreatLens - About</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main-content">
+
+    <div class="header">
+
+        <h1>⚙ Platform Things</h1>
+
+        <p>System configuration and health information</p>
+
+    </div>
+
+    <div style="margin-bottom:20px;">
+
+        <a href="/" class="btn pdf">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+    <!-- System Cards -->
+
+    <div class="stats">
+
+        <div class="card">
+
+            <h2>ONLINE</h2>
+
+            <p>Platform Status</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>SQLite</h2>
+
+            <p>Database Engine</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Flask</h2>
+
+            <p>Web Framework</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>ThreatLens</h2>
+
+            <p>SOC Platform</p>
+
+        </div>
+
+    </div>
+
+    <!-- System Information -->
+
+    <div class="table-container">
+
+        <h2>🖥 System Information</h2>
+
+        <table>
+
+            <tr>
+                <th>Component</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>Detection Engine</td>
+                <td>✅ Running</td>
+            </tr>
+
+            <tr>
+                <td>Threat Intelligence Module</td>
+                <td>✅ Running</td>
+            </tr>
+
+            <tr>
+                <td>MITRE ATT&CK Mapping</td>
+                <td>✅ Active</td>
+            </tr>
+
+            <tr>
+                <td>PDF Reporting Engine</td>
+                <td>✅ Active</td>
+            </tr>
+
+            <tr>
+                <td>Alert Database</td>
+                <td>✅ Connected</td>
+            </tr>
+
+            <tr>
+                <td>Dashboard Service</td>
+                <td>✅ Operational</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <br>
+
+    <!-- Version Information -->
+
+    <div class="table-container">
+
+        <h2>📦 Platform Details</h2>
+
+        <table>
+
+            <tr>
+                <th>Item</th>
+                <th>Value</th>
+            </tr>
+
+            <tr>
+                <td>Platform Name</td>
+                <td>ThreatLens</td>
+            </tr>
+
+            <tr>
+                <td>Version</td>
+                <td>1.0</td>
+            </tr>
+
+            <tr>
+                <td>Developer</td>
+                <td>Varun Kumar N</td>
+            </tr>
+
+            <tr>
+                <td>Technology Stack</td>
+                <td>Python, Flask, SQLite</td>
+            </tr>
+
+            <tr>
+                <td>Detection Framework</td>
+                <td>Custom SOC Detection Engine</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

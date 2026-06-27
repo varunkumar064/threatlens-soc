@@ -1,0 +1,20 @@
+# Python
+venv/
+__pycache__/
+*.py[cod]
+
+# Database
+database/*.db
+
+# Logs
+logs/*.log
+
+# Environment
+.env
+
+# VS Code
+.vscode/
+
+# macOS/Linux
+.DS_Store
+Thumbs.db

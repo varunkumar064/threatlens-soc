@@ -1,0 +1,14 @@
+SENTINELAI INCIDENT REPORT
+========================================
+
+Generated: 2026-06-03 01:13:58.023060
+
+Alert ID: ALT-cf804063
+IP Address: 203.0.113.50
+Attack Type: Suspicious Login
+Severity: High
+Attempts: 1
+Score: 80
+MITRE ID: T1078
+Threat Intel: Known Malicious
+Status: Open

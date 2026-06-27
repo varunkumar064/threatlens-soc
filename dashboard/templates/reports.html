@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ThreatLens - Reports</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main-content">
+
+    <div class="header">
+
+        <h1>📄 Incident Reports</h1>
+
+        <p>Generate and download security incident reports</p>
+
+    </div>
+
+    <div style="margin-bottom:20px;">
+
+        <a href="/" class="btn pdf">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+    <!-- Summary Cards -->
+
+    <div class="stats">
+
+        <div class="card">
+
+            <h2>{{ alerts|length }}</h2>
+
+            <p>Total Reports Available</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>PDF</h2>
+
+            <p>Report Format</p>
+
+        </div>
+
+    </div>
+
+    <!-- Reports Table -->
+
+    <div class="table-container">
+
+        <h2>📋 Available Reports</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Alert ID</th>
+                    <th>Timestamp</th>
+                    <th>IP Address</th>
+                    <th>Attack Type</th>
+                    <th>Severity</th>
+                    <th>MITRE ID</th>
+                    <th>Report</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for alert in alerts %}
+
+                <tr>
+
+                    <td>{{ alert.alert_id }}</td>
+
+                    <td>{{ alert.timestamp }}</td>
+
+                    <td>{{ alert.ip }}</td>
+
+                    <td>{{ alert.attack_type }}</td>
+
+                    <td>
+
+                        {% if alert.severity == "High" %}
+
+                            🔴 High
+
+                        {% else %}
+
+                            🟡 Medium
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>{{ alert.mitre_id }}</td>
+
+                    <td>
+
+                        <a class="btn pdf"
+                           href="/report/{{ alert.alert_id }}">
+
+                            📄 Download PDF
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

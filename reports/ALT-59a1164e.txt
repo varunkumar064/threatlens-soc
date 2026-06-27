@@ -1,0 +1,14 @@
+SENTINELAI INCIDENT REPORT
+========================================
+
+Generated: 2026-06-24 09:14:54.154931
+
+Alert ID: ALT-59a1164e
+IP Address: 192.168.1.250
+Attack Type: Brute Force Attack
+Severity: High
+Attempts: 5
+Score: 90
+MITRE ID: T1110
+Threat Intel: Clean
+Status: Open

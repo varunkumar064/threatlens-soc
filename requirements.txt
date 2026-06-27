@@ -1,1 +1,4 @@
-flask-socketio
+flask 
+flask-socketio 
+watchdog 
+requests

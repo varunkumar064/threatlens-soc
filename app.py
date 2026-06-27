@@ -1,3 +1,4 @@
+
 from core.socket_manager import socketio
 
 import threading
@@ -95,13 +96,9 @@ def threat_intel_page():
     alerts = get_alerts()
 
     malicious_alerts = [
-
         alert
-
         for alert in alerts
-
-        if alert["threat_intel"] == "Known Malicious"
-
+        if alert.get("threat_intel") == "Known Malicious"
     ]
 
     malicious_alerts = sorted(
@@ -116,30 +113,10 @@ def threat_intel_page():
     )
 
 
-@app.route("/reports")
-def reports_page():
+@app.route("/about")
+def about_page():
 
-    alerts = get_alerts()
-
-    alerts = sorted(
-        alerts,
-        key=lambda x: x["timestamp"],
-        reverse=True
-    )
-
-    return render_template(
-        "reports.html",
-        alerts=alerts
-    )
-
-
-@app.route("/settings")
-def settings_page():
-
-    return render_template(
-        "settings.html"
-    )
-
+    return render_template("about.html")
 
 @app.route("/report/<alert_id>")
 def report(alert_id):

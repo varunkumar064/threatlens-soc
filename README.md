@@ -1,5 +1,18 @@
 # 🛡️ ThreatLens
 
+<p align="center">
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![Flask](https://img.shields.io/badge/Flask-Backend-black?logo=flask)
+![Socket.IO](https://img.shields.io/badge/Socket.IO-Real--Time-white?logo=socketdotio)
+![SQLite](https://img.shields.io/badge/SQLite-Database-blue?logo=sqlite)
+![MITRE ATT&CK](https://img.shields.io/badge/MITRE-ATT%26CK-red)
+![Status](https://img.shields.io/badge/Status-Active-success)
+
+</p>
+
+# 🛡️ ThreatLens
+
 <h3 align="center">
 Security Operations Center (SOC) Monitoring Platform
 </h3>
@@ -264,15 +277,24 @@ This project helped me gain practical experience in:
 
 ---
 
-## 🔮 Future Improvements
+## 🚀 Roadmap
 
-* Real-Time Monitoring
-* Email Alerting
-* External Threat Intelligence Feeds
-* ELK Stack Integration
-* Splunk Integration
-* Machine Learning-Based Detection
-* REST API Support
+- [x] Log Monitoring
+- [x] Real-Time Dashboard
+- [x] WebSocket Notifications
+- [x] MITRE ATT&CK Mapping
+- [x] Threat Intelligence
+
+### Upcoming
+
+- [ ] GeoIP Attack Map
+- [ ] AbuseIPDB Integration
+- [ ] VirusTotal Integration
+- [ ] Sigma Rule Engine
+- [ ] Asset Discovery
+- [ ] REST API
+- [ ] User Authentication
+- [ ] AI Incident Summary
 
 ---
 
